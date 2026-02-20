@@ -60,7 +60,7 @@ def is_mom_deviating(indic: pd.Series, name: str = "Unknown"):
     print(f"Most recent MoM: {indic_pct_change.iloc[-1]}")
     print(f"Mean: {indic_pct_change_mean}")
     print(f"Std: {indic_pct_change_std}")
-    print(f"Deviation: {abs(indic_pct_change - indic_pct_change_mean)}")
+    print(f"Deviation: {abs(indic_pct_change.iloc[-1] - indic_pct_change_mean)}")
 
     if abs(indic_pct_change.iloc[-1] - indic_pct_change_mean) > indic_pct_change_std:
         print("\nIndicator deviating.")
