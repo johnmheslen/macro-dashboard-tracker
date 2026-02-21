@@ -33,8 +33,3 @@ def historical_comparison(indicator: str, range: int):
 
     # Get and return percentile of current_reading
     return percentileofscore(indic_series.iloc[-1*freq_map[get_frequency(indicator)]*range:], current_reading, kind='strict', nan_policy='omit')
-
-
-print(historical_comparison('cpi', 10))
-    
-print(historical_comparison('unemployment', 5))
