@@ -14,7 +14,7 @@ SERIES = {
         'name': 'Real GDP',
         'frequency': 'quarterly'
     },
-    '10y-2y_treasury': {
+    't10y2y': {
         'id': 'T10Y2Y',
         'name': '10 Year - 2 Year Treasury Spread',
         'frequency': 'daily'
@@ -48,5 +48,10 @@ SERIES = {
         'id': 'DCOILWTICO',
         'name': 'Crude Oil(WTI)',
         'frequency': 'daily'
+    },
+    'mortgage_rate': {
+        'id': 'MORTGAGE30US',
+        'name': '30 Year Fixed Mortgage Rate',
+        'frequency': 'weekly'
     }
 }
