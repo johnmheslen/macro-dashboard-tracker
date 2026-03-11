@@ -83,3 +83,74 @@ def check_housing_slowdown(housestarts: pd.Series, mortrate: pd.Series, n_months
                 'starts_decrease': housestarts.iloc[-n_months] - housestarts.iloc[-1],
                 'rates_increase': round(100 * (mortrate_monthly.iloc[-1] - mortrate_monthly.iloc[-n_months]) / mortrate_monthly.iloc[-n_months], 3),
                 'n_months': n_months}
+    
+
+def check_unemployment_drop(unrate: pd.Series):
+    """
+    Determine if unemployment rate is below 4%.
+
+    Args:
+        unrate: pd.Series
+    
+    Returns:
+        {'below_4pct: boolean, 'current_unrate': float}
+    """
+    if unrate.iloc[-1] < 4:
+        return {
+                'below_4pct': True,
+                'current_unrate': unrate.iloc[-1]
+                }
+    else:
+        return {
+                'below_4pct': False,
+                'current_unrate': unrate.iloc[-1]
+                }
+    
+
+def check_fed_rate_change(fed_rate: pd.Series):
+    """
+    Determine if Fed rates changed and by how much.
+    
+    Args:
+        fed_rate: pd.Series
+        
+    Returns:
+        {'rate_changed': Boolean, 'change_amount': float}
+    """
+
+    if fed_rate.iloc[-1] != fed_rate.iloc[-2]:
+        return {
+                'rate_changed': True,
+                'change_amount': fed_rate.iloc[-1] - fed_rate.iloc[-2]
+                }
+    else:
+        return {
+                'rate_changed': False,
+                'change_amount': fed_rate.iloc[-1] - fed_rate.iloc[-2]
+                }
+
+
+def check_oil_spike(crude_oil: pd.Series):
+    """
+    Determine if the price of crude oil has increased by 15% in the last 30 days.
+    
+    Args:
+        crude_oil: pd.Series
+        
+    Returns:
+        {'oil_spike': Boolean, 'oil_pct_change': float}
+    """
+    
+    crude_date = crude_oil.index[-1]
+    crude_date_back = crude_date - pd.DateOffset(days=30)
+    crude_date_back_value = crude_oil.asof(crude_date_back)
+    if crude_oil.iloc[-1] > crude_date_back_value*1.15:
+        return {
+            'oil_spike': True,
+            'oil_pct_change': (crude_oil.iloc[-1] - crude_date_back_value) / crude_date_back_value
+        }
+    else:
+        return {
+            'oil_spike': False,
+            'oil_pct_change': (crude_oil.iloc[-1] - crude_date_back_value) / crude_date_back_value
+        }
