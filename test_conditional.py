@@ -43,33 +43,40 @@ import pandas as pd
 # print(check_oil_spike(oil_prices))
 
 
-# ------- Checking Phillips Curve correlation ----------
-cpi = get_series('cpi')
-unemployment = get_series('unemployment')
+# # ------- Checking Phillips Curve correlation ----------
+# cpi = get_series('cpi')
+# unemployment = get_series('unemployment')
 
-print("Without resampling:\n")
-print(cpi.index[-1])
-print(unemployment.index[-1])
-print(cpi.tail())
-print(unemployment.tail())
-print()
-df = cpi.interpolate().rolling(window=24).corr(other=unemployment.interpolate())
-print(df.tail())
-
-cpi_m = cpi.resample('MS').last()
-unemployment_m = unemployment.resample('MS').last()
-
-print(cpi_m.index[-5:])
-print(unemployment_m.index[-5:])
-
-
-# df = cpi_m.rolling(window=24).corr(unemployment_m)
-
+# print("Without resampling:\n")
+# print(cpi.index[-1])
+# print(unemployment.index[-1])
+# print(cpi.tail())
+# print(unemployment.tail())
+# print()
+# df = cpi.interpolate().rolling(window=24).corr(other=unemployment.interpolate())
 # print(df.tail())
 
-# ----- Test phillips curve correlation method -------
-print("\n" + "-"*10 + "Phillips Curve Correlation Method" + "-"*10)
-from src.analysis.correlation import phillips_curve_dev
-print(phillips_curve_dev(cpi, unemployment, 120))
-print()
-print(f"Current: {df.iloc[-1]}\nMean: {df.iloc[-120:].mean()}\nStandard Dev: {df.iloc[-120:].std()}")
+# cpi_m = cpi.resample('MS').last()
+# unemployment_m = unemployment.resample('MS').last()
+
+# print(cpi_m.index[-5:])
+# print(unemployment_m.index[-5:])
+
+
+# # df = cpi_m.rolling(window=24).corr(unemployment_m)
+
+# # print(df.tail())
+
+# # ----- Test phillips curve correlation method -------
+# print("\n" + "-"*10 + "Phillips Curve Correlation Method" + "-"*10)
+# from src.analysis.correlation import phillips_curve_dev
+# print(phillips_curve_dev(cpi, unemployment, 120))
+# print()
+# print(f"Current: {df.iloc[-1]}\nMean: {df.iloc[-120:].mean()}\nStandard Dev: {df.iloc[-120:].std()}")
+
+
+# ---------- Testing forecast.py module ------------
+from src.analysis.forecast import forecast_series
+series = get_series('cpi')
+
+print(forecast_series(series))
